@@ -5,15 +5,40 @@ var localize = {
 
 	load: function() {
 
-		// Default locale
-		var locale = {
-			skipLanguage: localize.skipLanguage
-		}
-
-		$("[data-localize]").localize(localize.localeName, locale);
+		localize.localize();
 
 		// Change hash for SEO purpose
-		window.location.hash = '!' + $.defaultLanguage;
+		window.onhashchange = localize.onhashchange;
+	},
+
+	localize: function() {
+		$("[data-localize]").localize(localize.localeName, {
+			skipLanguage: localize.skipLanguage,
+			language: localize.getLanguage()
+		});
+		localize.setLanguageToHash(localize.getLanguage());
+	},
+
+	getLanguage: function() {
+		if ( window.location.hash && _.startsWith(window.location.hash, '#!')) {
+			return _.trim(window.location.hash, '#!')
+		}
+		return $.defaultLanguage;
+	},
+
+	setLanguageToHash: function(lg) {
+		window.location.hash = '!' + lg;
+	},
+
+	onhashchange: function() {
+		var lg = localize.getLanguage();
+
+		if (localize.skipLanguage.test(lg)) {
+			window.location.href = '/#!' + lg;
+			window.location.reload(true);
+		} else {
+			localize.localize();
+		}
 	}
 };
 
