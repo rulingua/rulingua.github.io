@@ -28,5 +28,10 @@
 	"contact_title": "Contact",
 	"contact_paragraph": "Vous avez un projet ?<br />Demandez un devis gratuit sans engagement de votre part !",
 
-	"copyright_title": "Traductrice-interprète russe Toulouse"
+	"copyright_title": "Traductrice-interprète russe Toulouse",
+
+	"form_name": "Nom",
+	"form_email": "Email",
+	"form_message": "Message",
+	"form_submit": "Envoyer"
 }
