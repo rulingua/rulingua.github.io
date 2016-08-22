@@ -1,47 +1,3 @@
-var localize = {
-
-	localeName: 'locales/language',
-	skipLanguage: /^en/,
-
-	load: function() {
-
-		localize.localize();
-
-		// Change hash for SEO purpose
-		window.onhashchange = localize.onhashchange;
-	},
-
-	localize: function() {
-		$("[data-localize]").localize(localize.localeName, {
-			skipLanguage: localize.skipLanguage,
-			language: localize.getLanguage()
-		});
-		localize.setLanguageToHash(localize.getLanguage());
-	},
-
-	getLanguage: function() {
-		if ( window.location.hash && _.startsWith(window.location.hash, '#!')) {
-			return _.trim(window.location.hash, '#!')
-		}
-		return $.defaultLanguage;
-	},
-
-	setLanguageToHash: function(lg) {
-		window.location.hash = '!' + lg;
-	},
-
-	onhashchange: function() {
-		var lg = localize.getLanguage();
-
-		if (localize.skipLanguage.test(lg)) {
-			window.location.href = '/#!' + lg;
-			window.location.reload(true);
-		} else {
-			localize.localize();
-		}
-	}
-};
-
 /*
 	Strata by HTML5 UP
 	html5up.net | @n33co
@@ -68,9 +24,6 @@ var localize = {
 	});
 
 	$(function() {
-
-		// Load default locale
-		localize.load();
 
 		$('#year').text(new Date().getFullYear());
 
